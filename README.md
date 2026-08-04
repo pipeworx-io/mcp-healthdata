@@ -2,12 +2,14 @@
 
 HealthData.gov MCP — wraps HealthData.gov CKAN API (free, no auth)
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 965+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1394+ live data sources.
 
 ## Tools
 
 | Tool | Description |
 |------|-------------|
+| `search_datasets` | Search HealthData.gov for public health datasets by keyword (e.g., "COVID hospitalizations", "Medicare spending", "opioid prescriptions"). Returns dataset titles, descriptions, organizations, and resource links. |
+| `get_dataset` | Get full metadata for a HealthData.gov dataset by its package ID. Returns title, description, organization, resources (CSV/JSON download links), update frequency, and tags. |
 
 ## Quick Start
 
@@ -23,7 +25,7 @@ Add to your MCP client (Claude Desktop, Cursor, Windsurf, etc.):
 }
 ```
 
-Or connect to the full Pipeworx gateway for access to all 965+ data sources:
+Or connect to the full Pipeworx gateway for access to all 1394+ data sources:
 
 ```json
 {
@@ -47,7 +49,7 @@ The gateway picks the right tool and fills the arguments automatically.
 
 ## More
 
-- [All tools and guides](https://github.com/pipeworx-io/examples)
+- [Docs and guides](https://pipeworx.io/docs)
 - [pipeworx.io](https://pipeworx.io)
 
 ## License
