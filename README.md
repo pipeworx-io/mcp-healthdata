@@ -1,15 +1,16 @@
 # mcp-healthdata
 
-HealthData.gov MCP — wraps HealthData.gov CKAN API (free, no auth)
+HealthData.gov MCP. Keyless.
 
-Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1476+ live data sources.
+Part of [Pipeworx](https://pipeworx.io) — an MCP gateway connecting AI agents to 1679+ live data sources.
 
 ## Tools
 
 | Tool | Description |
 |------|-------------|
-| `search_datasets` | Search HealthData.gov for public health datasets by keyword (e.g., "COVID hospitalizations", "Medicare spending", "opioid prescriptions"). Returns dataset titles, descriptions, organizations, and resource links. |
-| `get_dataset` | Get full metadata for a HealthData.gov dataset by its package ID. Returns title, description, organization, resources (CSV/JSON download links), update frequency, and tags. |
+| `search_datasets` | Search HealthData.gov for public-health datasets by keyword (e.g. "COVID hospitalizations", "Medicare spending", "opioid prescriptions"). Returns each dataset's Socrata id (a 4x4 like "g62h-syeh"), title, description, owning agency, tags, when the data was last updated, and its page-view count. Pass the id to get_dataset for full metadata or to get_rows to read the actual rows. |
+| `get_dataset` | Full metadata for one HealthData.gov dataset by its Socrata id (a 4x4 like "g62h-syeh", returned by search_datasets). Returns title, description, owning agency, licence, every column with its type, row count and the last data update. NOTE: HealthData.gov migrated off CKAN, so an old CKAN package id or slug will NOT resolve — search for the dataset again to get its 4x4. |
+| `get_rows` | Read actual rows from a HealthData.gov dataset by its Socrata 4x4 id. Optional SoQL `where` (e.g. "state = 'CA'") and `order` (e.g. "date DESC"). Use get_dataset first to see the column names. This returns the DATA, not a download link. |
 
 ## Quick Start
 
@@ -55,9 +56,45 @@ directly, instead of just this one's:
 }
 ```
 
-Both URLs reach the same gateway and the same 1476+ data sources. The
+Both URLs reach the same gateway and the same 1679+ data sources. The
 only difference is which pack's tools are listed **directly**; `ask_pipeworx`
 reaches all of them from either one.
+
+## No MCP client? Call it over HTTP
+
+```bash
+curl -X POST https://gateway.pipeworx.io/v1/tools/healthdata_search_datasets \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"COVID-19 hospitalizations"}'
+```
+
+No account needed for the first calls. Inspect any tool: `GET https://gateway.pipeworx.io/v1/tools/healthdata_search_datasets`. Find one: `POST https://gateway.pipeworx.io/v1/tools/search_packs` with `{"query":"..."}`.
+
+## Standalone (no gateway account)
+
+This package also runs as a local stdio MCP server — no Pipeworx account, no
+gateway round-trip:
+
+```json
+{
+  "mcpServers": {
+    "healthdata": {
+      "command": "npx",
+      "args": ["-y", "@pipeworx/mcp-healthdata"]
+    }
+  }
+}
+```
+
+Or run it directly to confirm it starts:
+
+```bash
+npx -y @pipeworx/mcp-healthdata
+```
+
+It speaks MCP over stdin/stdout and answers `initialize`/`tools/list`/`tools/call`
+for **only** this pack's tools — none of the shared meta-tools the gateway
+connection above adds. Same source, same tools, no ask_pipeworx routing.
 
 ## Using with ask_pipeworx
 
@@ -78,13 +115,3 @@ The gateway picks the right tool and fills the arguments automatically.
 ## License
 
 MIT
-
-## No MCP client? Call it over HTTP
-
-```bash
-curl -X POST https://gateway.pipeworx.io/v1/tools/healthdata_search_datasets \
-  -H 'Content-Type: application/json' \
-  -d '{"query":"COVID-19 hospitalizations"}'
-```
-
-No account needed for the first calls. Inspect any tool: `GET https://gateway.pipeworx.io/v1/tools/healthdata_search_datasets`. Find one: `POST https://gateway.pipeworx.io/v1/tools/search_packs` with `{"query":"..."}`.
