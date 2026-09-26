@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-healthdata",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "HealthData.gov MCP. Keyless.",
   "type": "module",
   "main": "src/index.ts",
@@ -26,7 +26,7 @@
     "@cloudflare/workers-types": "^4.20260405.1"
   },
   "pipeworx": {
-    "sourceHash": "v1-0be95b1234a938147c4c1d1fdab29b9c56dcfe88132af2c32bda248d21edf87e",
-    "sourceCommit": "76aa8f5d9b5dc2f665563030647c68e661478864"
+    "sourceHash": "v1-1fda3e4fb81a5edd6cfcffb8d1c4c0afc7604d9858075440412b855030fd03a7",
+    "sourceCommit": "1064560fd9dcd0d6fc2606298c2ba244b3a1fbeb"
   }
 }
