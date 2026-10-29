@@ -1,12 +1,20 @@
 {
   "name": "@pipeworx/mcp-healthdata",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "HealthData.gov MCP. Keyless.",
   "type": "module",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./tools.json": "./tools.json",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "mcp-healthdata": "bin/cli.js"
+  },
+  "files": ["bin/", "lib/", "tools.json", "server.json"],
+  "engines": {
+    "node": ">=18"
   },
   "keywords": ["mcp", "mcp-server", "model-context-protocol", "pipeworx", "healthdata"],
   "license": "MIT",
@@ -14,19 +22,12 @@
     "type": "git",
     "url": "git+https://github.com/pipeworx-io/mcp-healthdata.git"
   },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
-    "tsx": "^4.19.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.9.3",
-    "@cloudflare/workers-types": "^4.20260405.1"
-  },
+  "mcpName": "io.github.pipeworx-io/healthdata",
   "pipeworx": {
-    "sourceHash": "v1-4e0c64b3aead78b066548baf73fac77be9f68b9bcedcc2e986e3a1ecee38fbb2",
-    "sourceCommit": "24e32b525f9c0b2fd7d94b519b08abb108cc11cd"
+    "mode": "gateway",
+    "slug": "healthdata",
+    "gatewaySlug": "healthdata",
+    "sourceHash": "v1-903b883c9657d8928e0dbdae6e17a1c970aed31d065a36534f3fc80e7eb77e71",
+    "sourceCommit": "4844029e402d6bd2fe735add8abf6d46735f8ed5"
   }
 }

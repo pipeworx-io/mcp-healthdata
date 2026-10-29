@@ -1,0 +1,74 @@
+[
+  {
+    "name": "search_datasets",
+    "description": "Search HealthData.gov for public-health datasets by keyword (e.g. \"COVID hospitalizations\", \"Medicare spending\", \"opioid prescriptions\"). Returns each dataset's Socrata id (a 4x4 like \"g62h-syeh\"), title, description, owning agency, tags, when the data was last updated, and its page-view count. Pass the id to get_dataset for full metadata or to get_rows to read the actual rows.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Search query, e.g. \"vaccination rates\", \"hospital readmissions\"."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Max results, 1-50 (default 10)."
+        },
+        "offset": {
+          "type": "number",
+          "description": "Skip this many results, for paging (default 0)."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "get_dataset",
+    "description": "Full metadata for one HealthData.gov dataset by its Socrata id (a 4x4 like \"g62h-syeh\", returned by search_datasets). Returns title, description, owning agency, licence, every column with its type, row count and the last data update. NOTE: HealthData.gov migrated off CKAN, so an old CKAN package id or slug will NOT resolve — search for the dataset again to get its 4x4.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Socrata 4x4, e.g. \"g62h-syeh\"."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_rows",
+    "description": "Read actual rows from a HealthData.gov dataset by its Socrata 4x4 id. Optional SoQL `where` (e.g. \"state = 'CA'\") and `order` (e.g. \"date DESC\"). Use get_dataset first to see the column names. This returns the DATA, not a download link.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Socrata 4x4, e.g. \"g62h-syeh\"."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Rows to return, 1-1000 (default 20)."
+        },
+        "offset": {
+          "type": "number",
+          "description": "Skip this many rows (default 0)."
+        },
+        "where": {
+          "type": "string",
+          "description": "SoQL filter, e.g. \"state = 'CA'\"."
+        },
+        "order": {
+          "type": "string",
+          "description": "SoQL ordering, e.g. \"date DESC\"."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  }
+]
