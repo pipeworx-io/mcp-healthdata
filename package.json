@@ -1,6 +1,6 @@
 {
   "name": "@pipeworx/mcp-healthdata",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "HealthData.gov MCP. Keyless.",
   "type": "module",
   "main": "lib/index.js",
@@ -27,7 +27,7 @@
     "mode": "gateway",
     "slug": "healthdata",
     "gatewaySlug": "healthdata",
-    "sourceHash": "v1-903b883c9657d8928e0dbdae6e17a1c970aed31d065a36534f3fc80e7eb77e71",
-    "sourceCommit": "4844029e402d6bd2fe735add8abf6d46735f8ed5"
+    "sourceHash": "v1-fc9fd63262b62fd2b17f6d37d5b6b95e56d0c7f77836cf7214779b143aef6dac",
+    "sourceCommit": "0ca9712c0ac03bb0121cc7e81b202d0c45ac02ca"
   }
 }
